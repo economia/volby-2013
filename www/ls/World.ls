@@ -26,12 +26,23 @@ class Worldmap implements Dimensionable
         @svg = d3.select \body .append \svg
             ..attr \width @fullWidth
             ..attr \height @fullHeight
-        (err, okresy) <~ d3.json "../data-private/okresy.json"
-
+        (err, okresy) <~ d3.json "../data/okresy.json"
+        console.log okresy
+        boundaries = topojson.feature okresy, okresy.objects.okresy_wgs84 .features
+        @svg.selectAll \path.country
+            .data boundaries
+            .enter!
+            .append \path
+                ..attr \class \country
+                ..attr \d @path
+                ..attr \fill ~>
+                    console.log it.properties.nuts
+                    \#ccc
         @svg.append \path
             .datum topojson.mesh okresy, okresy.objects.okresy_wgs84, (a, b) -> a isnt b
             .attr \class \boundary
             .attr \d @path
+
 
     project: (area) ->
         @projection
