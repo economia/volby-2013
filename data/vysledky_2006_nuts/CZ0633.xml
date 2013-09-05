@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="iso-8859-2"?>
+<VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
+                 DATUM_GENEROVANI="05/09/2013" CAS_GENEROVANI="16:36:39">
+<CHYBA>Chybná hodnota v parametru NUTS</CHYBA>
+</VYSLEDKY_OKRES>

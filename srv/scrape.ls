@@ -9,19 +9,20 @@ nuts = <[ CZ0100 CZ0201 CZ0202 CZ0203 CZ0204 CZ0205 CZ0206 CZ0207 CZ0208 CZ0209 
 iconv = new Iconv \iso8859-2 \utf-8
 cntr = 0
 len = nuts.length
+year = 2010
 <~ async.eachSeries nuts, (nut, cb) ->
     (err, response, body) <~ request do
-        uri: "http://www.volby.cz/pls/ps2010/vysledky_okres?nuts=#nut"
+        uri: "http://www.volby.cz/pls/ps#year/vysledky_okres?nuts=#nut"
         encoding: null
     body = iconv.convert body
     console.log "Loaded #nut - #{++cntr} / #len"
     cb!
-    fs.writeFile "../data/vysledky_2010_nuts/#nut.xml", body
+    fs.writeFile "../data/vysledky_#year_nuts/#nut.xml", body
     console.log "Saved #nut"
 
 # krajska mesta - praha, brno, ostrava, plzen
 (err, response, body) <~ request do
-    uri: "http://www.volby.cz/pls/ps2010/vysledky_krajmesta"
+    uri: "http://www.volby.cz/pls/ps#year/vysledky_krajmesta"
     encoding: null
 body = iconv.convert body
-fs.writeFile "../data/vysledky_2010_nuts/krajmesta.xml", body
+fs.writeFile "../data/vysledky_#year_nuts/krajmesta.xml", body
