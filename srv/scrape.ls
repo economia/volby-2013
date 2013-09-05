@@ -19,3 +19,9 @@ len = nuts.length
     fs.writeFile "../data/vysledky_2010_nuts/#nut.xml", body
     console.log "Saved #nut"
 
+# krajska mesta - praha, brno, ostrava, plzen
+(err, response, body) <~ request do
+    uri: "http://www.volby.cz/pls/ps2010/vysledky_krajmesta"
+    encoding: null
+body = iconv.convert body
+fs.writeFile "../data/vysledky_2010_nuts/krajmesta.xml", body
