@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_KRAJMESTA xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_krajmesta.xsd"
-                 DATUM_GENEROVANI="05/09/2013" CAS_GENEROVANI="16:36:43">
+                 DATUM_GENEROVANI="05/09/2013" CAS_GENEROVANI="16:57:15">
 <KRAJ CIS_KRAJ="1" NAZ_KRAJ="Hl. m. Praha">
 <OBEC CIS_OBEC="554782" NAZ_OBEC="Hlavní město Praha">
 <UCAST OKRSKY_CELKEM="1112" OKRSKY_ZPRAC="1112" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="963199" VYDANE_OBALKY="659883" UCAST_PROC="68.51" ODEVZDANE_OBALKY="659147" PLATNE_HLASY="656495" PLATNE_HLASY_PROC="99.60" />
