@@ -27,7 +27,6 @@ class Worldmap implements Dimensionable
             ..attr \width @fullWidth
             ..attr \height @fullHeight
         (err, okresy) <~ d3.json "../data/okresy.json"
-        console.log okresy
         boundaries = topojson.feature okresy, okresy.objects.okresy_wgs84 .features
         @svg.selectAll \path.country
             .data boundaries
@@ -36,10 +35,15 @@ class Worldmap implements Dimensionable
                 ..attr \class \country
                 ..attr \d @path
                 ..attr \fill ~>
-                    console.log it.properties.nuts
                     \#ccc
         @svg.append \path
             .datum topojson.mesh okresy, okresy.objects.okresy_wgs84, (a, b) -> a isnt b
+            .attr \class \boundary
+            .style \stroke-width \2px
+            .attr \d @path
+        (err, obce) <~ d3.json "../data/obce.json"
+        @svg.append \path
+            .datum topojson.mesh obce, obce.objects.obce, (a, b) -> a isnt b
             .attr \class \boundary
             .attr \d @path
 
@@ -48,7 +52,7 @@ class Worldmap implements Dimensionable
         @projection
             ..scale @width * 8
             ..translate [@width / 2, @height / 2]
-            ..center [15.3 49.8]
+            ..center [15.3 49.86]
     resize: ({width, height})->
         @computeDimensions width, height
         @svg
