@@ -26,27 +26,28 @@ class Worldmap implements Dimensionable
         @svg = d3.select \body .append \svg
             ..attr \width @fullWidth
             ..attr \height @fullHeight
-        (err, okresy) <~ d3.json "../data/okresy.json"
-        boundaries = topojson.feature okresy, okresy.objects.okresy_wgs84 .features
+        @color = d3.scale.linear!
+            ..domain [0 0.25 0.5 0.75 1]
+            ..range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
+        (err, okresy) <~ d3.json "../data/2010_obce.json"
+        (err, obce) <~ d3.json "../data/obce.json"
+        features = topojson.feature obce, obce.objects.obce .features
         @svg.selectAll \path.country
-            .data boundaries
+            .data features
             .enter!
             .append \path
                 ..attr \class \country
                 ..attr \d @path
+                ..attr \data-tooltip ->
+                    vysledky = okresy[it.properties.id]
+                    return "#{it.properties.id}" if not vysledky
                 ..attr \fill ~>
-                    \#ccc
-        @svg.append \path
-            .datum topojson.mesh okresy, okresy.objects.okresy_wgs84, (a, b) -> a isnt b
-            .attr \class \boundary
-            .style \stroke-width \2px
-            .attr \d @path
-        (err, obce) <~ d3.json "../data/obce.json"
-        @svg.append \path
-            .datum topojson.mesh obce, obce.objects.obce, (a, b) -> a isnt b
-            .attr \class \boundary
-            .attr \d @path
-
+                    vysledky = okresy[it.properties.id]
+                    return \#aaa if not vysledky
+                    opo = vysledky[6] + vysledky[9]
+                    koa = vysledky[4] + (vysledky[15] || 0) + (vysledky[26] || 0)
+                    return \#aaa if 0 == opo + koa
+                    @color koa / (opo+koa)
 
     project: (area) ->
         @projection
