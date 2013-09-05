@@ -14,7 +14,7 @@ Dimensionable =
         @width = @fullWidth - @margin.left - @margin.right
         @height = @fullHeight - @margin.top - @margin.bottom
 
-
+year = 2010
 class Worldmap implements Dimensionable
     ({width, height}) ->
         @computeDimensions width, height
@@ -29,7 +29,7 @@ class Worldmap implements Dimensionable
         @color = d3.scale.linear!
             ..domain [0 0.25 0.5 0.75 1]
             ..range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
-        (err, okresy) <~ d3.json "../data/2010_obce.json"
+        (err, okresy) <~ d3.json "../data/#{year}_obce.json"
         (err, obce) <~ d3.json "../data/obce.json"
         features = topojson.feature obce, obce.objects.obce .features
         @svg.selectAll \path.country
@@ -44,8 +44,12 @@ class Worldmap implements Dimensionable
                 ..attr \fill ~>
                     vysledky = okresy[it.properties.id]
                     return \#aaa if not vysledky
-                    opo = vysledky[6] + vysledky[9]
-                    koa = vysledky[4] + (vysledky[15] || 0) + (vysledky[26] || 0)
+                    if year == 2010
+                        opo = vysledky[6] + vysledky[9]
+                        koa = vysledky[4] + vysledky[15] + vysledky[26]
+                    else
+                        opo = vysledky[10] + vysledky[20]
+                        koa = vysledky[9] + vysledky[18] + vysledky[24]
                     return \#aaa if 0 == opo + koa
                     @color koa / (opo+koa)
 
