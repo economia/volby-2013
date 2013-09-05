@@ -11,7 +11,7 @@ obce = {}
     (err, result) <~ xml.parseString data
     result.VYSLEDKY_OKRES.OBEC?.forEach (obec) ->
         id = obec.$.CIS_OBEC
-        strany = []
+        strany = new Array 27
         obec.HLASY_STRANA.forEach (strana) ->
             id = parseInt strana.$.KSTRANA, 10
             strany[id] = Math.round strana.$.PROC_HLASU
