@@ -17,6 +17,10 @@ obce = {}
             strany[id] = Math.round strana.$.PROC_HLASU
         obce[id] = strany
     cb!
+csv = ""
+for obec, strany of obce
+    csv += "#obec,#{strany.join ','}\n"
+fs.writeFile "../data/2010_obce.csv", csv
 
 json = JSON.stringify obce .replace /null/g "0"
 fs.writeFile "../data/2010_obce.json", json
