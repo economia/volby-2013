@@ -1,27 +1,8 @@
 new Tooltip!watchElements!
-countriesById = d3.map!
-fillColorsByType = d3.map!
-settings = d3.map!
-worldTopojson = null
 
-d3.json "../data-private/world.json" (err, world) ->
-    worldTopojson := world
-    draw!
-
-loadCounter = 0
-somethingLoaded = ->
-    if ++loadCounter >= 2 then draw!
-draw = ->
-    $window = $ window
-    width  = $window .width!
-    height = $window .height!
-    display = settings.get \display
-    worldmap = new Worldmap worldTopojson, display, countriesById, fillColorsByType, {width, height}
-    $window.on \resize ->
-        width  = $window .width!
-        height = $window .height!
-        worldmap.resize {width, height}
-
+$window = $ window
+width  = $window .width!
+height = $window .height!
 
 Dimensionable =
     margin:
@@ -35,7 +16,7 @@ Dimensionable =
 
 
 class Worldmap implements Dimensionable
-    (world, @visiblePart, @data, @fillColors, {width, height}) ->
+    ({width, height}) ->
         @computeDimensions width, height
         @projection = d3.geo.mercator!
             ..precision 0
@@ -45,9 +26,10 @@ class Worldmap implements Dimensionable
         @svg = d3.select \body .append \svg
             ..attr \width @fullWidth
             ..attr \height @fullHeight
+        (err, okresy) <~ d3.json "../data-private/okresy.json"
 
         @svg.append \path
-            .datum topojson.mesh world, world.objects.countries, (a, b) -> a isnt b
+            .datum topojson.mesh okresy, okresy.objects.okresy_wgs84, (a, b) -> a isnt b
             .attr \class \boundary
             .attr \d @path
 
@@ -64,3 +46,9 @@ class Worldmap implements Dimensionable
         @project @visiblePart
         @svg.selectAll \path
             .attr \d @path
+
+worldmap = new Worldmap {width, height}
+$window.on \resize ->
+    width  = $window .width!
+    height = $window .height!
+    worldmap.resize {width, height}
