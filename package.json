@@ -1,0 +1,22 @@
+{
+  "name": "volby-2014",
+  "version": "0.0.1",
+  "description": "Vizualizace k volb�m 2014",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/economia/volby-2014.git"
+  },
+  "keywords": [
+    "volby"
+  ],
+  "author": "Economia a.s.",
+  "license": "CC-BY-NC-SA",
+  "dependencies": {
+    "stylus": "~0.37.0",
+    "uglify-js": "~2.4.0"
+  }
+}
