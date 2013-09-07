@@ -37,7 +37,8 @@ window.SquareAdmin = class SquareAdmin implements Dimensionable
         count = squares
             .filter -> it.off != true
             .length
-        console.log count
+        window.currentKraj = 1
+        window.alternateKraj = 2
         @squares.selectAll \rect
             .data squares
             .enter!append \rect
@@ -47,16 +48,27 @@ window.SquareAdmin = class SquareAdmin implements Dimensionable
                 ..attr \height squareSide - 2
                 ..attr \data-coords -> "#{it.x}-#{it.y}"
                 ..classed \inactive -> it.off
-                ..on \mouseover ->
+                ..on \click ->
+                    ele = d3.select @
+                    switch
                     | d3.event.altKey
-                        d3.select @ .classed \inactive no
-                        delete it.off
-                        count++
+                        ele.attr \class ''
+                        it.kraj = null
                     | d3.event.ctrlKey
-                        d3.select @ .classed \inactive yes
-                        it.off = yes
-                        count--
-                    console.log count
+                        it.kraj = alternateKraj
+                        ele.attr \class "kraj-#alternateKraj"
+                    | otherwise
+                        it.kraj = currentKraj
+                        ele.attr \class "kraj-#currentKraj"
+
+                    curr = squares
+                        .filter -> it.kraj == currentKraj
+                        .length
+                    alt = squares
+                        .filter -> it.kraj == alternateKraj
+                        .length
+                    console.log curr, alt
+
 
         window.foo = ->
             console.log JSON.stringify squares
