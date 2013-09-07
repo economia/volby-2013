@@ -1,9 +1,3 @@
-new Tooltip!watchElements!
-
-$window = $ window
-width  = $window .width!
-height = $window .height!
-
 Dimensionable =
     margin:
         top: 10
@@ -13,10 +7,8 @@ Dimensionable =
     computeDimensions: (@fullWidth, @fullHeight) ->
         @width = @fullWidth - @margin.left - @margin.right
         @height = @fullHeight - @margin.top - @margin.bottom
-
-year = 2010
-class Worldmap implements Dimensionable
-    ({width, height}) ->
+window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
+    (@year, {width, height}) ->
         @computeDimensions width, height
         @projection = d3.geo.mercator!
             ..precision 0
@@ -26,10 +18,12 @@ class Worldmap implements Dimensionable
         @svg = d3.select \body .append \svg
             ..attr \width @fullWidth
             ..attr \height @fullHeight
+        @drawElectionResults!
+    drawElectionResults: ->
         @color = d3.scale.linear!
             ..domain [0 0.25 0.5 0.75 1]
             ..range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
-        (err, okresy) <~ d3.json "../data/#{year}_obce.json"
+        (err, okresy) <~ d3.json "../data/#{@year}_obce.json"
         (err, obce) <~ d3.json "../data/obce.json"
         features = topojson.feature obce, obce.objects.obce .features
         @svg.selectAll \path.country
@@ -44,7 +38,7 @@ class Worldmap implements Dimensionable
                 ..attr \fill ~>
                     vysledky = okresy[it.properties.id]
                     return \#aaa if not vysledky
-                    if year == 2010
+                    if @year == 2010
                         opo = vysledky[6] + vysledky[9]
                         koa = vysledky[4] + vysledky[15] + vysledky[26]
                     else
@@ -66,9 +60,3 @@ class Worldmap implements Dimensionable
         @project @visiblePart
         @svg.selectAll \path
             .attr \d @path
-
-worldmap = new Worldmap {width, height}
-$window.on \resize ->
-    width  = $window .width!
-    height = $window .height!
-    worldmap.resize {width, height}

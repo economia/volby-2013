@@ -1,7 +1,7 @@
 require! {
     fs
 }
-deferScripts = []
+deferScripts = ['base.js']
 build-styles = (options = {}) ->
     require! stylus
     (err, data) <~ fs.readFile "#__dirname/www/styl/screen.styl"
