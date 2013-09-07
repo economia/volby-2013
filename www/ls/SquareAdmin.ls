@@ -37,8 +37,8 @@ window.SquareAdmin = class SquareAdmin implements Dimensionable
         count = squares
             .filter -> it.off != true
             .length
-        window.currentKraj = 1
-        window.alternateKraj = 2
+        window.currentKraj = 3
+        window.alternateKraj = 4
         @squares.selectAll \rect
             .data squares
             .enter!append \rect
@@ -61,14 +61,12 @@ window.SquareAdmin = class SquareAdmin implements Dimensionable
                     | otherwise
                         it.kraj = currentKraj
                         ele.attr \class "kraj-#currentKraj"
-
-                    curr = squares
-                        .filter -> it.kraj == currentKraj
-                        .length
-                    alt = squares
-                        .filter -> it.kraj == alternateKraj
-                        .length
-                    console.log curr, alt
+                    counts = {}
+                    for i in [1 til 14]
+                        counts[i] = squares
+                            .filter -> it.kraj == i
+                            .length
+                    console.log counts[currentKraj], counts[alternateKraj], counts
 
 
         window.foo = ->
