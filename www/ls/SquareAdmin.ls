@@ -32,13 +32,27 @@ window.SquareAdmin = class SquareAdmin implements Dimensionable
         squares = []
         for x in [0 to squaresInRow]
             for y in [0 to squaresInCol]
-                squares.push [x, y]
+                squares.push {x, y}
         @squares.selectAll \rect
             .data squares
             .enter!append \rect
-                ..attr \x -> it.0 * squareSide
-                ..attr \y -> it.1 * squareSide
+                ..attr \x -> it.x * squareSide
+                ..attr \y -> it.y * squareSide
                 ..attr \width squareSide - 2
                 ..attr \height squareSide - 2
+                ..on \mouseover ->
+                    | d3.event.altKey
+                        d3.select @ .classed \inactive no
+                        it.active = yes
+                        count++
+                    | d3.event.ctrlKey
+                        d3.select @ .classed \inactive yes
+                        it.active = no
+                        count--
 
+                    console.log count
+
+
+        window.foo = ->
+            console.log JSON.stringify squares
 
