@@ -20,34 +20,54 @@ body
             &:hover
                 opacity 0.7
 
-        .squares
+        &.squares
+            background black
             rect
-                fill #ddd
+                fill black
+                &.active
+                    stroke-width 2px
+                    fill-opacity 0.7
+                    &:hover
+                        fill-opacity 1
                 &.kraj-1
                     fill #f66
+                    stroke @fill
                 &.kraj-2
                     fill #6f6
+                    stroke @fill
                 &.kraj-3
                     fill #66f
+                    stroke @fill
                 &.kraj-4
                     fill #6ff
+                    stroke @fill
                 &.kraj-5
                     fill #ff6
+                    stroke @fill
                 &.kraj-6
                     fill #f6f
+                    stroke @fill
                 &.kraj-7
                     fill #3c3
+                    stroke @fill
                 &.kraj-8
                     fill #c33
+                    stroke @fill
                 &.kraj-9
                     fill #33c
+                    stroke @fill
                 &.kraj-10
                     fill #c3c
+                    stroke @fill
                 &.kraj-11
                     fill #cc3
+                    stroke @fill
                 &.kraj-12
                     fill #090
+                    stroke @fill
                 &.kraj-13
                     fill #900
+                    stroke @fill
                 &.kraj-14
                     fill #009
+                    stroke @fill

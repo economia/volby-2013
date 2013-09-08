@@ -9,6 +9,7 @@ window.SquareAdmin = class SquareAdmin implements Dimensionable
         @path = d3.geo.path!
             ..projection @projection
         @svg = d3.select \body .append \svg
+            ..attr \class \squares
             ..attr \width @fullWidth
             ..attr \height @fullHeight
         (err, kraje) <~ d3.json '../data/kraje.geojson'
@@ -50,6 +51,7 @@ window.SquareAdmin = class SquareAdmin implements Dimensionable
                 ..attr \data-coords -> "#{it.x}-#{it.y}"
                 ..attr \class -> if it.kraj then "kraj-#{it.kraj}" else ""
                 ..classed \inactive -> it.off
+                ..classed \active -> !it.off
                 ..on \click ->
                     ele = d3.select @
                     switch
