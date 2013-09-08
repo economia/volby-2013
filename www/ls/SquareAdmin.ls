@@ -39,13 +39,14 @@ window.SquareAdmin = class SquareAdmin implements Dimensionable
             .length
         window.currentKraj = 1
         window.alternateKraj = 2
+        squareMargin = 10
         @squares.selectAll \rect
             .data squares
             .enter!append \rect
-                ..attr \x -> it.x * squareSide
-                ..attr \y -> it.y * squareSide
-                ..attr \width squareSide - 2
-                ..attr \height squareSide - 2
+                ..attr \x -> it.x * squareSide + squareMargin
+                ..attr \y -> it.y * squareSide + squareMargin
+                ..attr \width squareSide - 2 * squareMargin
+                ..attr \height squareSide - 2 * squareMargin
                 ..attr \data-coords -> "#{it.x}-#{it.y}"
                 ..attr \class -> if it.kraj then "kraj-#{it.kraj}" else ""
                 ..classed \inactive -> it.off
