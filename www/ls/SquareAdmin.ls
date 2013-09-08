@@ -50,6 +50,13 @@ window.SquareAdmin = class SquareAdmin implements Dimensionable
                 ..attr \height squareSide - 2 * squareMargin
                 ..attr \data-coords -> "#{it.x}-#{it.y}"
                 ..attr \class -> if it.kraj then "kraj-#{it.kraj}" else ""
+                ..attr \transform ->
+                    x = it.x - 13
+                    x /= 2
+                    deg = x / Math.PI / 10
+                    ty = x * squareSide / 3 * (-1)
+
+                    "matrix(1, #{Math.tan deg}, 0, 1, 0, #{ty})"
                 ..classed \inactive -> !it.kraj
                 ..classed \active -> !!it.kraj
                 ..on \click ->
