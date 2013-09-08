@@ -22,7 +22,7 @@ window.SquareAdmin = class SquareAdmin implements Dimensionable
         #     .enter!append \path
         #         ..attr \class \boundary
         #         ..attr \d @path
-        @drawSquares 500
+        @drawSquares 330
 
     drawSquares: (count) ->
         svgArea = @width * @height
