@@ -8,14 +8,14 @@ window.SquareAdmin = class SquareAdmin implements Dimensionable
             ..center [15.3 49.86]
         @path = d3.geo.path!
             ..projection @projection
-        @svg = d3.select \body .append \svg
+        @svg = d3.select \body .append \div
             ..attr \class \squares
-            ..attr \width @fullWidth
-            ..attr \height @fullHeight
+            ..style \width @fullWidth + \px
+            ..style \height @fullHeight + \px
         (err, kraje) <~ d3.json '../data/kraje.geojson'
-        @squares = @svg.append \g
+        @squares = @svg.append \div
             .attr \class \squares
-        @map = @svg.append \g
+        @map = @svg.append \div
             ..attr \class \map
         # @map.selectAll \path
         #     .data kraje.features
@@ -41,13 +41,13 @@ window.SquareAdmin = class SquareAdmin implements Dimensionable
         window.currentKraj = 1
         window.alternateKraj = 2
         squareMargin = 10
-        @squares.selectAll \rect
+        @squares.selectAll \div
             .data squares
-            .enter!append \rect
-                ..attr \x -> it.x * squareSide + squareMargin
-                ..attr \y -> it.y * squareSide + squareMargin
-                ..attr \width squareSide - 2 * squareMargin
-                ..attr \height squareSide - 2 * squareMargin
+            .enter!append \div
+                ..style \left -> it.x * squareSide + squareMargin + "px"
+                ..style \top -> it.y * squareSide + squareMargin + "px"
+                ..style \width squareSide - 2 * squareMargin + "px"
+                ..style \height squareSide - 2 * squareMargin + "px"
                 ..attr \data-coords -> "#{it.x}-#{it.y}"
                 ..attr \class -> if it.kraj then "kraj-#{it.kraj}" else ""
                 ..attr \transform ->
@@ -55,7 +55,6 @@ window.SquareAdmin = class SquareAdmin implements Dimensionable
                     x /= 2
                     deg = x / Math.PI / 10
                     ty = x * squareSide / 3 * (-1)
-
                     "matrix(1, #{Math.tan deg}, 0, 1, 0, #{ty})"
                 ..classed \inactive -> !it.kraj
                 ..classed \active -> !!it.kraj
