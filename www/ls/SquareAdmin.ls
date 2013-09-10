@@ -50,12 +50,14 @@ window.SquareAdmin = class SquareAdmin implements Dimensionable
                 ..style \height squareSide - 2 * squareMargin + "px"
                 ..attr \data-coords -> "#{it.x}-#{it.y}"
                 ..attr \class -> if it.kraj then "kraj-#{it.kraj}" else ""
-                ..attr \transform ->
+                ..style \-webkit-transform ->
                     x = it.x - 13
                     x /= 2
-                    deg = x / Math.PI / 10
-                    ty = x * squareSide / 3 * (-1)
-                    "matrix(1, #{Math.tan deg}, 0, 1, 0, #{ty})"
+                    deg = x * -5
+                    "matrix3d(0.9333765506744385, 0, 0.3588985502719879, 0, -0.09745786339044571, -0.962425172328949, 0.2534556984901428, 0, -0.3454129993915558, 0.2715471088886261, 0.8983051180839539, 0, -276.3304138183594, 217.23768615722656, 718.64404296875, 1)"
+                    x = Math.abs x
+                    x -= 10
+                    "perspective(100px) rotateY(#{deg}deg) translateZ(#{x*6}px)"
                 ..classed \inactive -> !it.kraj
                 ..classed \active -> !!it.kraj
                 ..on \click ->
