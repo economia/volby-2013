@@ -16,6 +16,8 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
         (err, parties) <~ d3.csv "../data/strany_ids.csv"
         @parties = d3.map!
         parties.forEach ~> @parties.set it.zkratka, it
+        @color = d3.scale.linear!
+
         @decorateWithResults obce
         (err, obceTopo) <~ d3.json "../data/obce.topojson"
         features = topojson.feature obceTopo, obceTopo.objects.obce .features
@@ -28,22 +30,36 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                 ..attr \data-tooltip ->
                     vysledky = obce[it.properties.id]
                     return "#{it.properties.id}" if not vysledky
-                ..attr \fill ->
-                    if obce[it.properties.id] then  that.color else \#aaa
+                ..attr \fill ~>
+                    if obce[it.properties.id] then @color that.score else \#aaa
 
     decorateWithResults: (obce) ->
-        color = d3.scale.linear!
-            ..range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
-            ..domain [0 0.25 0.5 0.75 1]
-
+        max = -Infinity
         for id, results of obce
-            obce[id].color = switch @sides.length
+            obce[id].score = switch @sides.length
             | 1
-                \#aaa
+                green = @sumParties @sides[0], results
+                all = results.reduce @~sumAll, 0
+                result = green / all
+                if result > max
+                    max = result
+                result
             | 2
                 red = @sumParties @sides[0], results
-                blue  = @sumParties @sides[1], results
-                color blue / (red + blue)
+                blue = @sumParties @sides[1], results
+                blue / (red + blue)
+        if @sides.length == 2
+            max = 1
+            @color.range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
+        else
+            @color.range <[ #EDF8E9 #BAE4B3 #74C476 #31A354 #006D2C ]>
+        @color.domain [
+            0
+            max * 0.25
+            max * 0.5
+            max * 0.75
+            max * 1
+        ]
 
     sumParties: (zkratky, results) ->
         zkratky.reduce do
@@ -51,6 +67,7 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                 index = @parties.get zkratka .[@year]
                 sum += results[index]
             0
+    sumAll: (sum, currentCount) -> sum + (currentCount || 0)
 
     project: (area) ->
         @projection
