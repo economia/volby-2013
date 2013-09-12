@@ -20,21 +20,20 @@ $select2 = $ "<select name='party2' multiple='multiple' />"
     ..appendTo $selects
 $selectR = $ "<select name='rok'/>"
     ..appendTo $selects
-$ "<input type='submit' value='Zobrazit' />"
+$ "<input type='submit' value='Zobrazit' id='submit' />"
     ..appendTo $selects
 [2002,2006,2010].forEach ->
     $ "<option value='#{it}'>#{it}</option>" .appendTo $selectR
 parties.forEach ->
     $ "<option value='#{it.zkratka}'>#{it.nazev}</option>" .appendTo $select1
     $ "<option value='#{it.zkratka}'>#{it.nazev}</option>" .appendTo $select2
-$ document .on \click 'input' ->
+[$select1, $select2, $selectR].forEach -> it.chosen!
+$ document .on \click 'input#submit' ->
     parties = []
-    console.log $select1.val!
     parties.0 = $select1.val!
     parties.1 = $select2.val!
     if !parties.1 || !parties.1.length
         parties.pop!
-    console.log parties
     year = $selectR.val!
     $ \svg .remove!
     worldmap = new ElectionResultsMap year, parties, {width, height}
