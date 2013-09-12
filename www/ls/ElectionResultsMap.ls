@@ -15,7 +15,7 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             ..domain [0 0.25 0.5 0.75 1]
             ..range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
         (err, okresy) <~ d3.json "../data/#{@year}_obce.json"
-        (err, obce) <~ d3.json "../data/obce.json"
+        (err, obce) <~ d3.json "../data/obce.topojson"
         features = topojson.feature obce, obce.objects.obce .features
         @svg.selectAll \path.country
             .data features
