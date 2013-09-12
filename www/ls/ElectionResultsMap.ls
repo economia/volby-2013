@@ -19,6 +19,10 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
         @color = d3.scale.linear!
 
         @decorateWithResults obce
+        if @sides
+            allParties = @sides.0.slice 0
+            if @sides.1 then allParties ++= @sides.1
+            allParties .= map ~> @parties.get it
         (err, obceTopo) <~ d3.json "../data/obce.topojson"
         features = topojson.feature obceTopo, obceTopo.objects.obce .features
         @svg.selectAll \path.country
@@ -27,9 +31,17 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             .append \path
                 ..attr \class \country
                 ..attr \d @path
-                ..attr \data-tooltip ->
+                ..attr \data-tooltip ~>
                     vysledky = obce[it.properties.id]
-                    return "#{it.properties.id}" if not vysledky
+                    str = "Okres #{it.properties.id}<br />"
+                    return if not vysledky
+                    total = vysledky.reduce do
+                        (acc, curr) -> acc + curr
+                        0
+                    allParties.forEach ~>
+                        pocet = vysledky[it[@year]]
+                        str += "#{it.zkratka}: #{pocet} (#{(pocet / total * 100).toFixed 2}%)<br />"
+                    escape str
                 ..attr \fill ~>
                     if obce[it.properties.id] then @color that.score else \#aaa
 
