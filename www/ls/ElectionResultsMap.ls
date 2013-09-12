@@ -1,5 +1,5 @@
 window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
-    (@year, {width, height}) ->
+    (@year, @sides, {width, height}) ->
         @computeDimensions width, height
         @projection = d3.geo.mercator!
             ..precision 0
@@ -10,13 +10,15 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             ..attr \width @fullWidth
             ..attr \height @fullHeight
         @drawElectionResults!
+
     drawElectionResults: ->
-        @color = d3.scale.linear!
-            ..domain [0 0.25 0.5 0.75 1]
-            ..range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
-        (err, okresy) <~ d3.json "../data/#{@year}_obce.json"
-        (err, obce) <~ d3.json "../data/obce.topojson"
-        features = topojson.feature obce, obce.objects.obce .features
+        (err, obce) <~ d3.json "../data/#{@year}_obce.json"
+        (err, parties) <~ d3.csv "../data/strany_ids.csv"
+        @parties = d3.map!
+        parties.forEach ~> @parties.set it.zkratka, it
+        @decorateWithResults obce
+        (err, obceTopo) <~ d3.json "../data/obce.topojson"
+        features = topojson.feature obceTopo, obceTopo.objects.obce .features
         @svg.selectAll \path.country
             .data features
             .enter!
@@ -24,23 +26,31 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                 ..attr \class \country
                 ..attr \d @path
                 ..attr \data-tooltip ->
-                    vysledky = okresy[it.properties.id]
+                    vysledky = obce[it.properties.id]
                     return "#{it.properties.id}" if not vysledky
-                ..attr \fill ~>
-                    vysledky = okresy[it.properties.id]
-                    return \#aaa if not vysledky
-                    switch @year
-                    | 2010
-                        opo = vysledky[6] + vysledky[9]
-                        koa = vysledky[4] + vysledky[15] + vysledky[26]
-                    | 2006
-                        opo = vysledky[10] + vysledky[20]
-                        koa = vysledky[9] + vysledky[18] + vysledky[24]
-                    | 2002
-                        opo = vysledky[3] + vysledky[23]
-                        koa = vysledky[22] + vysledky[25]
-                    return \#aaa if 0 == opo + koa
-                    @color koa / (opo+koa)
+                ..attr \fill ->
+                    if obce[it.properties.id] then  that.color else \#aaa
+
+    decorateWithResults: (obce) ->
+        color = d3.scale.linear!
+            ..range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
+            ..domain [0 0.25 0.5 0.75 1]
+
+        for id, results of obce
+            obce[id].color = switch @sides.length
+            | 1
+                \#aaa
+            | 2
+                red = @sumParties @sides[0], results
+                blue  = @sumParties @sides[1], results
+                color blue / (red + blue)
+
+    sumParties: (zkratky, results) ->
+        zkratky.reduce do
+            (sum, zkratka) ~>
+                index = @parties.get zkratka .[@year]
+                sum += results[index]
+            0
 
     project: (area) ->
         @projection
