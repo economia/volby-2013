@@ -6,7 +6,7 @@ height = $window .height!
 
 year = 2006
 # new SquareAdmin {width, height}
-parties =
+sides =
     [ 'PB' ]
     ...
     # [ \ODS 'TOP 09' \VV \SZ 'KDU-ČSL' ]
@@ -29,15 +29,15 @@ parties.forEach ->
     $ "<option value='#{it.zkratka}'>#{it.nazev}</option>" .appendTo $select2
 [$select1, $select2, $selectR].forEach -> it.chosen!
 $ document .on \click 'input#submit' ->
-    parties = []
-    parties.0 = $select1.val!
-    parties.1 = $select2.val!
-    if !parties.1 || !parties.1.length
-        parties.pop!
+    sides = []
+    sides.0 = $select1.val!
+    sides.1 = $select2.val!
+    if !sides.1 || !sides.1.length
+        sides.pop!
     year = $selectR.val!
     $ \svg .remove!
-    worldmap = new ElectionResultsMap year, parties, {width, height}
-worldmap = new ElectionResultsMap year, parties, {width, height}
+    worldmap = new ElectionResultsMap year, sides, {width, height}
+worldmap = new ElectionResultsMap year, sides, {width, height}
 # $window.on \resize ->
 #     width  = $window .width!
 #     height = $window .height!
