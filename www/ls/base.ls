@@ -25,8 +25,8 @@ $ "<input type='submit' value='Zobrazit' id='submit' />"
 [2010,2006,2002].forEach ->
     $ "<option value='#{it}'>#{it}</option>" .appendTo $selectR
 parties.forEach ->
-    $ "<option value='#{it.zkratka}'>#{it.nazev}</option>" .appendTo $select1
-    $ "<option value='#{it.zkratka}'>#{it.nazev}</option>" .appendTo $select2
+    $ "<option value='#{it.zkratka}'>#{it.zkratka} #{it.nazev}</option>" .appendTo $select1
+    $ "<option value='#{it.zkratka}'>#{it.zkratka} #{it.nazev}</option>" .appendTo $select2
 [$select1, $select2, $selectR].forEach -> it.chosen!
 $ document .on \click 'input#submit' ->
     sides = []
