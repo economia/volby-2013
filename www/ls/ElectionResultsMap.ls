@@ -29,12 +29,16 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                 ..attr \fill ~>
                     vysledky = okresy[it.properties.id]
                     return \#aaa if not vysledky
-                    if @year == 2010
+                    switch @year
+                    | 2010
                         opo = vysledky[6] + vysledky[9]
                         koa = vysledky[4] + vysledky[15] + vysledky[26]
-                    else
+                    | 2006
                         opo = vysledky[10] + vysledky[20]
                         koa = vysledky[9] + vysledky[18] + vysledky[24]
+                    | 2002
+                        opo = vysledky[3] + vysledky[23]
+                        koa = vysledky[22] + vysledky[25]
                     return \#aaa if 0 == opo + koa
                     @color koa / (opo+koa)
 
