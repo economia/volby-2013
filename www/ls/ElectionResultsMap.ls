@@ -34,7 +34,7 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                 ..attr \data-tooltip ~>
                     vysledky = obce[it.properties.id]
                     str = "Okres #{it.properties.id}<br />"
-                    return if not vysledky
+                    return escape str if not vysledky
                     total = vysledky.reduce do
                         (acc, curr) -> acc + curr
                         0
