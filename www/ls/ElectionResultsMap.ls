@@ -1,5 +1,5 @@
 window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
-    (@year, {width, height}) ->
+    (@year, @sides, {width, height}) ->
         @computeDimensions width, height
         @projection = d3.geo.mercator!
             ..precision 0
@@ -10,33 +10,76 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             ..attr \width @fullWidth
             ..attr \height @fullHeight
         @drawElectionResults!
+
     drawElectionResults: ->
+        (err, obce) <~ d3.json "../data/#{@year}_obce.json"
+        (err, parties) <~ d3.csv "../data/strany_ids.csv"
+        @parties = d3.map!
+        parties.forEach ~> @parties.set it.zkratka, it
         @color = d3.scale.linear!
-            ..domain [0 0.25 0.5 0.75 1]
-            ..range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
-        (err, okresy) <~ d3.json "../data/#{@year}_obce.json"
-        (err, obce) <~ d3.json "../data/obce.json"
-        features = topojson.feature obce, obce.objects.obce .features
+
+        @decorateWithResults obce
+        if @sides
+            allParties = @sides.0.slice 0
+            if @sides.1 then allParties ++= @sides.1
+            allParties .= map ~> @parties.get it
+        (err, obceTopo) <~ d3.json "../data/obce.topojson"
+        features = topojson.feature obceTopo, obceTopo.objects.obce .features
         @svg.selectAll \path.country
             .data features
             .enter!
             .append \path
                 ..attr \class \country
                 ..attr \d @path
-                ..attr \data-tooltip ->
-                    vysledky = okresy[it.properties.id]
-                    return "#{it.properties.id}" if not vysledky
+                ..attr \data-tooltip ~>
+                    vysledky = obce[it.properties.id]
+                    str = "Okres #{it.properties.id}<br />"
+                    return if not vysledky
+                    total = vysledky.reduce do
+                        (acc, curr) -> acc + curr
+                        0
+                    allParties.forEach ~>
+                        pocet = vysledky[it[@year]]
+                        str += "#{it.zkratka}: #{pocet} (#{(pocet / total * 100).toFixed 2}%)<br />"
+                    escape str
                 ..attr \fill ~>
-                    vysledky = okresy[it.properties.id]
-                    return \#aaa if not vysledky
-                    if @year == 2010
-                        opo = vysledky[6] + vysledky[9]
-                        koa = vysledky[4] + vysledky[15] + vysledky[26]
-                    else
-                        opo = vysledky[10] + vysledky[20]
-                        koa = vysledky[9] + vysledky[18] + vysledky[24]
-                    return \#aaa if 0 == opo + koa
-                    @color koa / (opo+koa)
+                    if obce[it.properties.id] then @color that.score else \#aaa
+
+    decorateWithResults: (obce) ->
+        max = -Infinity
+        for id, results of obce
+            obce[id].score = switch @sides.length
+            | 1
+                green = @sumParties @sides[0], results
+                all = results.reduce @~sumAll, 0
+                result = green / all
+                if result > max
+                    max = result
+                result
+            | 2
+                red = @sumParties @sides[0], results
+                blue = @sumParties @sides[1], results
+                blue / (red + blue)
+        if @sides.length == 2
+            max = 1
+            @color.range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
+        else
+            @color.range <[ #EDF8E9 #BAE4B3 #74C476 #31A354 #006D2C ]>
+        @color.domain [
+            0
+            max * 0.25
+            max * 0.5
+            max * 0.75
+            max * 1
+        ]
+
+    sumParties: (zkratky, results) ->
+        zkratky.reduce do
+            (sum, zkratka) ~>
+                index = @parties.get zkratka .[@year]
+                sum += results[index]
+            0
+    sumAll: (sum, currentCount) -> sum + (currentCount || 0)
 
     project: (area) ->
         @projection
