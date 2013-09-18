@@ -1,6 +1,6 @@
 require! fs
 obce = {}
-(err, content) <~ fs.readFile "#__dirname/../data/2002_obce.raw.csv"
+(err, content) <~ fs.readFile "#__dirname/../data/1998_obce.raw.csv"
 throw err if err
 content .= toString!
 lines = content.split "\n"
@@ -14,5 +14,5 @@ lines.forEach (line) ->
 out = ""
 for obecId, hlasy of obce
     out += "#obecId,#{hlasy.join ','}\n"
-fs.writeFile "#__dirname/../data/2002_obce.csv", out
-fs.writeFile "#__dirname/../data/2002_obce.json", JSON.stringify obce
+fs.writeFile "#__dirname/../data/1998_obce.csv", out
+fs.writeFile "#__dirname/../data/1998_obce.json", JSON.stringify obce
