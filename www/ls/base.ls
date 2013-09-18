@@ -22,7 +22,7 @@ $selectR = $ "<select name='rok'/>"
     ..appendTo $selects
 $ "<input type='submit' value='Zobrazit' id='submit' />"
     ..appendTo $selects
-[2010,2006,2002].forEach ->
+[2010,2006,2002,1998].forEach ->
     $ "<option value='#{it}'>#{it}</option>" .appendTo $selectR
 parties.forEach ->
     $ "<option value='#{it.zkratka}'>#{it.zkratka} #{it.nazev}</option>" .appendTo $select1
