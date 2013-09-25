@@ -34,7 +34,7 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                 ..attr \d @path
                 ..attr \data-tooltip ~>
                     vysledky = obce[it.properties.id]
-                    str = "Obec #{it.properties.id}<br />"
+                    str = "Obec #{it.properties.name || it.properties.namemc} (#{it.properties.id})<br />"
                     if not vysledky
                         console?log it.properties.id
                         return escape str
