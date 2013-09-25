@@ -21,7 +21,7 @@ len = nuts.length
     body = iconv.convert body
     console.log "Loaded #nut - #{++cntr} / #len"
     cb!
-    fs.writeFile "../data/vysledky_#{year}_nuts/#nut.xml", body
+    fs.writeFile "#__dirname/../data/vysledky_#{year}_nuts/#nut.xml", body
     console.log "Saved #nut"
 
 # krajska mesta - praha, brno, ostrava, plzen
@@ -29,4 +29,4 @@ len = nuts.length
     uri: "http://www.volby.cz/pls/ps#year/vysledky_krajmesta"
     encoding: null
 body = iconv.convert body
-fs.writeFile "../data/vysledky_#{year}_nuts/krajmesta.xml", body
+fs.writeFile "#__dirname/../data/vysledky_#{year}_nuts/krajmesta.xml", body
