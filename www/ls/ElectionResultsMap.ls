@@ -67,7 +67,7 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             max = 1
             @color.range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
         else
-            @color.range <[ #EDF8E9 #BAE4B3 #74C476 #31A354 #006D2C ]>
+            @color.range <[ #FEE5D9 #FCAE91 #FB6A4A #DE2D26 #A50F15]>
         @color.domain [
             0
             max * 0.25
