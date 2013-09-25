@@ -16,13 +16,13 @@ parseObec = (obec) ->
         id = parseInt strana.$.KSTRANA, 10
         strany[id] = parseInt strana.$.HLASY, 10
     obce[id] = strany
-(err, data) <~ fs.readFile "../data/vysledky_#{year}_nuts/krajmesta.xml"
+(err, data) <~ fs.readFile "#__dirname/../data/vysledky_#{year}_nuts/krajmesta.xml"
 data .= toString!
 (err, result) <~ xml.parseString data
 result.VYSLEDKY_KRAJMESTA.KRAJ.forEach (kraj) ->
     kraj.OBEC?.forEach parseObec
 <~ async.eachLimit nuts, 10, (nut, cb) ->
-    (err, data) <~ fs.readFile "../data/vysledky_#{year}_nuts/#nut.xml"
+    (err, data) <~ fs.readFile "#__dirname/../data/vysledky_#{year}_nuts/#nut.xml"
     data .= toString!
     (err, result) <~ xml.parseString data
     result.VYSLEDKY_OKRES.OBEC?.forEach parseObec
@@ -30,7 +30,7 @@ result.VYSLEDKY_KRAJMESTA.KRAJ.forEach (kraj) ->
 csv = ""
 for obec, strany of obce
     csv += "#obec,#{strany.join ','}\n"
-fs.writeFile "../data/#{year}_obce.csv", csv
+fs.writeFile "#__dirname/../data/#{year}_obce.csv", csv
 
 json = JSON.stringify obce .replace /null/g "0"
-fs.writeFile "../data/#{year}_obce.json", json
+fs.writeFile "#__dirname/../data/#{year}_obce.json", json
