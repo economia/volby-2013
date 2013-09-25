@@ -4,7 +4,7 @@ $window = $ window
 width  = $window .width!
 height = $window .height!
 
-year = 2006
+year = 2010
 # new SquareAdmin {width, height}
 sides =
     [ 'KSČM' ]

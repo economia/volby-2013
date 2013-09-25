@@ -23,7 +23,8 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             allParties = @sides.0.slice 0
             if @sides.1 then allParties ++= @sides.1
             allParties .= map ~> @parties.get it
-        (err, obceTopo) <~ d3.json "../data/obce.topojson"
+        (err, obceTopo) <~ d3.json "../data/obce_medium.topojson"
+        obceTopo.objects.obce.geometries ++= obceTopo.objects.mesta.geometries
         features = topojson.feature obceTopo, obceTopo.objects.obce .features
         @svg.selectAll \path.country
             .data features
