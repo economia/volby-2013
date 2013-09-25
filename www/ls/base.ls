@@ -7,7 +7,7 @@ height = $window .height!
 year = 2006
 # new SquareAdmin {width, height}
 sides =
-    [ 'PB' ]
+    [ 'KSČM' ]
     ...
     # [ \ODS 'TOP 09' \VV \SZ 'KDU-ČSL' ]
 (err, parties) <~ d3.csv "../data/strany_ids.csv"
