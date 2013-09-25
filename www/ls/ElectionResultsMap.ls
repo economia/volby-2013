@@ -32,6 +32,11 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             .append \path
                 ..attr \class \country
                 ..attr \d @path
+                ..attr \data-export ~>
+                    results = obce[it.properties.id]
+                    name = it.properties.name || it.properties.namemc
+                    id = it.properties.id
+                    JSON.stringify {results, name, id}
                 ..attr \data-tooltip ~>
                     vysledky = obce[it.properties.id]
                     str = "Obec #{it.properties.name || it.properties.namemc} (#{it.properties.id})<br />"
