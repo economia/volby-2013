@@ -26,6 +26,20 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
         (err, obceTopo) <~ d3.json "../data/obce_medium.topojson"
         obceTopo.objects.obce.geometries ++= obceTopo.objects.mesta.geometries
         features = topojson.feature obceTopo, obceTopo.objects.obce .features
+        tooltip = ~>
+            vysledky = obce[it.properties.id]
+            str = "<b>#{it.properties.name || it.properties.namemc}</b><br />"
+            if not vysledky
+                console?log it.properties.id
+                return escape str
+            total = vysledky.reduce do
+                (acc, curr) -> acc + curr
+                0
+            allParties.forEach ~>
+                pocet = vysledky[it[@year]]
+                str += "Volební výsledek #{it.zkratka} v roce #{@year}: #{(pocet / total * 100).toFixed 2}%  (#{pocet} hlasů)<br />"
+            str
+
         @svg.selectAll \path.country
             .data features
             .enter!
@@ -33,23 +47,9 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                 ..attr \class \country
                 ..attr \d @path
                 ..attr \data-export ~>
-                    results = obce[it.properties.id]
-                    name = it.properties.name || it.properties.namemc
-                    id = it.properties.id
-                    JSON.stringify {results, name, id}
+                    JSON.stringify tooltip it
                 ..attr \data-tooltip ~>
-                    vysledky = obce[it.properties.id]
-                    str = "Obec #{it.properties.name || it.properties.namemc} (#{it.properties.id})<br />"
-                    if not vysledky
-                        console?log it.properties.id
-                        return escape str
-                    total = vysledky.reduce do
-                        (acc, curr) -> acc + curr
-                        0
-                    allParties.forEach ~>
-                        pocet = vysledky[it[@year]]
-                        str += "#{it.zkratka}: #{pocet} (#{(pocet / total * 100).toFixed 2}%)<br />"
-                    escape str
+                    escape tooltip it
                 ..attr \fill ~>
                     if obce[it.properties.id] then @color that.score else \#aaa
 
