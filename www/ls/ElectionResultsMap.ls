@@ -28,18 +28,25 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
         obceTopo.objects.obce.geometries ++= obceTopo.objects.mesta.geometries
         features = topojson.feature obceTopo, obceTopo.objects.obce .features
         tooltip = ~>
+            id      = it.properties.id
+            name    = it.properties.name || it.properties.namemc
+            abbr    = null
+            percent = null
+            count   = null
+            year    = @year
             vysledky = obce[it.properties.id]
-            str = "<b>#{it.properties.name || it.properties.namemc}</b><br />"
-            if not vysledky
-                console?log it.properties.id
-                return escape str
-            total = vysledky.reduce do
-                (acc, curr) -> acc + curr
-                0
-            allParties.forEach ~>
-                pocet = vysledky[it[@year]]
-                str += "Volební výsledek #{it.zkratka} v roce #{@year}: #{(pocet / total * 100).toFixed 2}%  (#{pocet} hlasů)<br />"
-            str
+            if vysledky
+                total = vysledky.reduce do
+                    (acc, curr) -> acc + curr
+                    0
+                allParties.forEach ~>
+                    pocet = vysledky[it[@year]]
+
+                    abbr    := it.zkratka
+                    percent := pocet / total
+                    count   := pocet
+
+            {id, name, abbr, percent, count, year}
 
         @svg.selectAll \path.country
             .data features
@@ -50,13 +57,19 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                 ..attr \data-export ~>
                     JSON.stringify tooltip it
                 ..attr \data-tooltip ~>
-                    escape tooltip it
+                    {abbr, percent, count, year, id, name} = tooltip it
+                    escape "<b>#{name}</b><br />Volební výsledek #{abbr} v roce #{year}: #{(percent * 100).toFixed 2}%  (#{count} hlasů)<br />"
+
                 ..attr \fill ~>
-                    if obce[it.properties.id] then @color that.score else \#aaa
+                    obec = obce[it.properties.id]
+                    if obec and not isNaN obec.score
+                        @color obec.score
+                    else
+                        \#aaa
 
     decorateWithResults: (obce) ->
         max = -Infinity
-        for id, results of obce
+        scores = for id, results of obce
             obce[id].score = switch @sides.length
             | 1
                 green = @sumParties @sides[0], results
