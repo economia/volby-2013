@@ -73,14 +73,9 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             max = 1
             @color.range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
         else
-            @color.range <[ #FEE5D9 #FCAE91 #FB6A4A #DE2D26 #A50F15]>
-        @color.domain [
-            0
-            max * 0.25
-            max * 0.5
-            max * 0.75
-            max * 1
-        ]
+            @color.range <[ #FFF5F0 #FEE0D2 #FCBBA1 #FC9272 #FB6A4A #EF3B2C #CB181D #A50F15 #67000D ]>
+        scores .= filter -> not isNaN it
+        @color.domain ss.jenks scores, 8
 
     sumParties: (zkratky, results) ->
         zkratky.reduce do
