@@ -5,6 +5,7 @@ width  = $window .width!
 height = $window .height!
 
 year = 2006
+document.title = "Mapa #year"
 # new SquareAdmin {width, height}
 sides =
     [ 'KSČM' ]
