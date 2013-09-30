@@ -23,7 +23,8 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             allParties = @sides.0.slice 0
             if @sides.1 then allParties ++= @sides.1
             allParties .= map ~> @parties.get it
-        (err, obceTopo) <~ d3.json "../data/obce_medium.topojson"
+        filename = if @year > 1998 then "obce_medium" else "obce_98"
+        (err, obceTopo) <~ d3.json "../data/#filename.topojson"
         obceTopo.objects.obce.geometries ++= obceTopo.objects.mesta.geometries
         features = topojson.feature obceTopo, obceTopo.objects.obce .features
         tooltip = ~>
