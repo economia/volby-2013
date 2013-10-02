@@ -30,23 +30,22 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
         tooltip = ~>
             id      = it.properties.id
             name    = it.properties.name || it.properties.namemc
-            abbr    = null
-            percent = null
-            count   = null
             year    = @year
+            partyResults = null
             vysledky = obce[it.properties.id]
             if vysledky
                 total = vysledky.reduce do
                     (acc, curr) -> acc + curr
                     0
-                allParties.forEach ~>
+                partyResults = allParties.map ~>
                     pocet = vysledky[it[@year]]
 
-                    abbr    := it.zkratka
-                    percent := pocet / total
-                    count   := pocet
+                    abbr    = it.zkratka
+                    percent = pocet / total
+                    count   = pocet
+                    {abbr, percent, count}
 
-            {id, name, abbr, percent, count, year}
+            {id, name, year, partyResults}
 
         @svg.selectAll \path.country
             .data features
@@ -57,8 +56,14 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                 ..attr \data-export ~>
                     JSON.stringify tooltip it
                 ..attr \data-tooltip ~>
-                    {abbr, percent, count, year, id, name} = tooltip it
-                    escape "<b>#{name}</b><br />Volební výsledek #{abbr} v roce #{year}: #{(percent * 100).toFixed 2}%  (#{count} hlasů)<br />"
+                    {year, id, name, partyResults} = tooltip it
+                    str = "<b>#{name}</b>, rok #{year}<br />"
+                    if partyResults
+                        partyResults.forEach ({abbr, percent, count}) ->
+                            str += "#{abbr}: #{(percent * 100).toFixed 2}%  (#{count} hlasů)<br />"
+                    else
+                        str += "kdo ví"
+                    escape str
 
                 ..attr \fill ~>
                     obec = obce[it.properties.id]
