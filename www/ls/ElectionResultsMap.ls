@@ -86,7 +86,7 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             max = 1
             @color.range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
         else
-            @color.range <[ #FFF5F0 #FEE0D2 #FCBBA1 #FC9272 #FB6A4A #EF3B2C #CB181D #A50F15 #67000D ]>
+            @color.range <[ #FFFFE5 #FFF7BC #FEE391 #FEC44F #FE9929 #EC7014 #CC4C02 #993404 #662506 ]>
         scores .= filter -> not isNaN it
         @color.domain do
             *   0
