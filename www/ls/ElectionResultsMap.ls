@@ -103,7 +103,7 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
         zkratky.reduce do
             (sum, zkratka) ~>
                 index = @parties.get zkratka .[@year]
-                sum += results[index]
+                sum += (results[index] || 0)
             0
     sumAll: (sum, currentCount) -> sum + (currentCount || 0)
 
