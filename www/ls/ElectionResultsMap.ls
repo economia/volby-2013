@@ -16,10 +16,9 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
         (err, parties) <~ d3.csv "../data/strany_ids.csv"
         @parties = d3.map!
         parties.forEach ~> @parties.set it.zkratka, it
-        @color = d3.scale.linear!
 
         @decorateWithResults obce
-        if @sides
+        if @sides and @sides.length
             allParties = @sides.0.slice 0
             if @sides.1 then allParties ++= @sides.1
             allParties .= map ~> @parties.get it
@@ -53,17 +52,8 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             .append \path
                 ..attr \class \country
                 ..attr \d @path
-                ..attr \data-export ~>
-                    JSON.stringify tooltip it
                 ..attr \data-tooltip ~>
-                    {year, id, name, partyResults} = tooltip it
-                    str = "<b>#{name}</b>, rok #{year}<br />"
-                    if partyResults
-                        partyResults.forEach ({abbr, percent, count}) ->
-                            str += "#{abbr}: #{(percent * 100).toFixed 2}%  (#{count} hlasů)<br />"
-                    else
-                        str += "kdo ví"
-                    escape str
+                    it.properties.name || it.properties.namemc
 
                 ..attr \fill ~>
                     obec = obce[it.properties.id]
@@ -76,6 +66,14 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
         max = -Infinity
         scores = for id, results of obce
             obce[id].score = switch @sides.length
+            | 0
+                winningIndex = null
+                winningValue = -Infinity
+                results.forEach (value, index) ->
+                    if value > winningValue
+                        winningValue := value
+                        winningIndex := index
+                winningIndex
             | 1
                 green = @sumParties @sides[0], results
                 all = results.reduce @~sumAll, 0
@@ -87,17 +85,31 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                 red = @sumParties @sides[0], results
                 blue = @sumParties @sides[1], results
                 blue / (red + blue)
-        if @sides.length == 2
-            max = 1
-            @color.range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
+        if @sides.length > 0
+            @color = d3.scale.linear!
+            @color.range switch @sides.length
+                | 2 => <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
+                | 1 => <[ #FFFFE5 #FFF7BC #FEE391 #FEC44F #FE9929 #EC7014 #CC4C02 #993404 #662506 ]>
+            scores .= filter -> not isNaN it
+            scores .= sort (a, b) -> b - a
+            [0 til scores.length by Math.round scores.length / 10].forEach -> console.log it, scores[it]
+            smallDomain = [0 0.025 0.05 0.075 0.1 0.125 0.15 0.175 0.7]
+            bigDomain = [0 0.075 0.15 0.225 0.3 0.375 0.45 0.525 0.7]
+            @color.domain if @year is 2010 then bigDomain else smallDomain
         else
-            @color.range <[ #FFFFE5 #FFF7BC #FEE391 #FEC44F #FE9929 #EC7014 #CC4C02 #993404 #662506 ]>
-        scores .= filter -> not isNaN it
-        scores .= sort (a, b) -> b - a
-        [0 til scores.length by Math.round scores.length / 10].forEach -> console.log it, scores[it]
-        smallDomain = [0 0.025 0.05 0.075 0.1 0.125 0.15 0.175 0.7]
-        bigDomain = [0 0.075 0.15 0.225 0.3 0.375 0.45 0.525 0.7]
-        @color.domain if @year is 2010 then bigDomain else smallDomain
+            @color = d3.scale.ordinal!
+            @color.domain [0 to 27]
+            range = [0 to 27].map -> \#aaa
+            range[4] = \#84d0f1
+            range[6] = \#e3001a
+            range[9] = \#f29400
+            range[13]= \#FB9A99
+            range[15]= \#7c0042
+            range[17]= \#000000
+            range[20]= \#00AD00
+            range[21]= \#015641
+            range[26]= \#006ab3
+            @color.range range
 
     sumParties: (zkratky, results) ->
         zkratky.reduce do

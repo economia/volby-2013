@@ -5,14 +5,9 @@ width  = 1920 #$window .width!
 height = 1080 #$window .height!
 
 year = 2010
-document.title = "Protesty #year"
+document.title = "Vítězové #year"
 # new SquareAdmin {width, height}
-sides =
-    1998: [[ \ČSNS \NEZ \DEU \SZ \MoDS \OKPK \DŽJ ]]
-    2002: [[ "ČSNS" "SZR" "BPS" "ČP" "SNK ED" "PB" "SZ" "NDS" "DL" "VPB" "HA" "AZSD" "N" "NH" "RMS" "CZ" "ROI" "SV SOS" "ČSDH" "REP" "ODA" "MoDS" "DŽJ"]]
-    2006: [[ "SZR" "ČHNJ" "BPS" "LiRA" "PaS" "NEZ" "ČP" "KČ" "SNK ED" "US-DEU" "HOB" "PB" "4 VIZE 4" "ČSNS2005" "M" "SZ" "HS" "Koal_ČR" "NS" "FiS" "NEZ/DEM" "SRŠ" ]]
-    2010: [[ "Občané" "LIB" "VV" "KONS" "ČSNS" "NP" "SPR-RSČ" "SPOZ" "STOP" "TOP 09" "ES" "Suveren" "ČPS" "DSSS" "Svobodní" "KH" "KČ" "PB" "ČSNS2005" "M" "HS" ]]
-sides = sides[year]
+sides = []
 (err, parties) <~ d3.csv "../data/strany_ids.csv"
 $body = $ \body
 $selects = $ "<div id='selects' />"
