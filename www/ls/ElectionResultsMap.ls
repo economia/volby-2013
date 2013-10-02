@@ -100,15 +100,13 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             @color = d3.scale.ordinal!
             @color.domain [0 to 27]
             range = [0 to 27].map -> \#aaa
-            range[4] = \#84d0f1
-            range[6] = \#e3001a
-            range[9] = \#f29400
-            range[13]= \#FB9A99
-            range[15]= \#7c0042
-            range[17]= \#000000
-            range[20]= \#00AD00
-            range[21]= \#015641
-            range[26]= \#006ab3
+            range[9] = \#006ab3
+            range[10] = \#f29400
+            range[11] = \#015641
+            range[18] = \#00AD00
+            range[20] = \#e3001a
+            range[24] = \#000000
+
             @color.range range
 
     sumParties: (zkratky, results) ->

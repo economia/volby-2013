@@ -4,7 +4,7 @@ $window = $ window
 width  = 1920 #$window .width!
 height = 1080 #$window .height!
 
-year = 2010
+year = 2006
 document.title = "Vítězové #year"
 # new SquareAdmin {width, height}
 sides = []
