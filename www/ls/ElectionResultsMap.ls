@@ -88,6 +88,8 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
         else
             @color.range <[ #FFFFE5 #FFF7BC #FEE391 #FEC44F #FE9929 #EC7014 #CC4C02 #993404 #662506 ]>
         scores .= filter -> not isNaN it
+        scores .= sort (a, b) -> b - a
+        [0 til scores.length by Math.round scores.length / 10].forEach -> console.log it, scores[it]
         @color.domain do
             *   0
                 0.04
