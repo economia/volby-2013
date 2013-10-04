@@ -3,12 +3,7 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
         @computeDimensions width, height
         @projection = d3.geo.mercator!
             ..precision 0
-        @project @visiblePart
-        @path = d3.geo.path!
-            ..projection @projection
         @svg = d3.select \body .append \svg
-            ..attr \width @fullWidth
-            ..attr \height @fullHeight
         @drawElectionResults!
 
     drawElectionResults: ->
@@ -27,6 +22,11 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
         (err, obceTopo) <~ d3.json "../data/#filename.topojson"
         obceTopo.objects.obce.geometries ++= obceTopo.objects.mesta.geometries
         features = topojson.feature obceTopo, obceTopo.objects.obce .features
+        bounds = @getBounds features
+        @project bounds
+        @annotateSvg bounds
+        @path = d3.geo.path!
+            ..projection @projection
         tooltip = ~>
             id      = it.properties.id
             name    = it.properties.name || it.properties.namemc
@@ -72,6 +72,21 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                     else
                         \#aaa
 
+    getBounds: (features) ->
+        north = -Infinity
+        west  = +Infinity
+        south = +Infinity
+        east  = -Infinity
+        features.forEach (feature) ->
+            [[w,s],[e,n]] = d3.geo.bounds feature
+            if n > north => north := n
+            if w < west  => west  := w
+            if s < south => south := s
+            if e > east  => east  := e
+
+        console.log west
+        [[west, south], [east, north]]
+
     decorateWithResults: (obce) ->
         max = -Infinity
         scores = for id, results of obce
@@ -107,11 +122,25 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             0
     sumAll: (sum, currentCount) -> sum + (currentCount || 0)
 
-    project: (area) ->
+    project: ([[west, south], [east, north]]:bounds) ->
+        displayedPercent = (Math.abs west - east) / 360
         @projection
-            ..scale @width * 8
-            ..translate [@width / 2, @height / 2]
-            ..center [15.3 49.86]
+            ..scale @width / (Math.PI * 2 * displayedPercent)
+            ..center [west, north]
+            ..translate [0 0]
+
+        @projection
+
+    annotateSvg: ([[west, south], [east, north]]:bounds) ->
+        [x0, y0] = @projection [west, north]
+        [x1, y1] = @projection [east, south]
+        width = (x1 - x0)
+        height = (y1 - y0)
+        @svg
+            ..attr \width width
+            ..attr \height height
+            ..attr \data-bounds [north, west, south, east].join ','
+
     resize: ({width, height})->
         @computeDimensions width, height
         @svg
