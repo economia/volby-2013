@@ -109,10 +109,13 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             @color.range <[ #FFFFE5 #FFF7BC #FEE391 #FEC44F #FE9929 #EC7014 #CC4C02 #993404 #662506 ]>
         scores .= filter -> not isNaN it
         scores .= sort (a, b) -> b - a
-        [0 til scores.length by Math.round scores.length / 10].forEach -> console.log it, scores[it]
-        smallDomain = [0 0.025 0.05 0.075 0.1 0.125 0.15 0.175 0.7]
-        bigDomain = [0 0.075 0.15 0.225 0.3 0.375 0.45 0.525 0.7]
-        @color.domain if @year is 2010 then bigDomain else smallDomain
+        [0 til scores.length by Math.round scores.length / 8].forEach -> console.log it, scores[it]
+        domains =
+            1998: [0 0.10 0.125 0.138 0.150 0.163 0.178 0.2 0.42]
+            2002: [0 0.08 0.098 0.112 0.124 0.138 0.157 0.189 0.7]
+            2006: [0 0.044 0.059 0.070 0.08 0.091 0.104 0.124 0.52]
+            2010: [0 0.287 0.323 0.349 0.374 0.398 0.426 0.465 0.692]
+        @color.domain domains[@year]
 
     sumParties: (zkratky, results) ->
         zkratky.reduce do
