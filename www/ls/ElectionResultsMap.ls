@@ -57,7 +57,7 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                     JSON.stringify tooltip it
                 ..attr \data-tooltip ~>
                     {year, id, name, partyResults} = tooltip it
-                    str = "<b>#{name}</b>, rok #{year}<br />"
+                    str = "<b>#{name} #id</b>, rok #{year}<br />"
                     if partyResults
                         partyResults.forEach ({abbr, percent, count}) ->
                             str += "#{abbr}: #{(percent * 100).toFixed 2}%  (#{count} hlasů)<br />"
@@ -84,7 +84,6 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             if s < south => south := s
             if e > east  => east  := e
 
-        console.log west
         [[west, south], [east, north]]
 
     decorateWithResults: (obce) ->
@@ -106,16 +105,26 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             max = 1
             @color.range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
         else
-            @color.range <[ #FFFFE5 #FFF7BC #FEE391 #FEC44F #FE9929 #EC7014 #CC4C02 #993404 #662506 ]>
+            @color.range <[#FFF7F3 #FDE0DD #FCC5C0 #FA9FB5 #F768A1 #DD3497 #AE017E #7A0177 #49006A ]>
         scores .= filter -> not isNaN it
         scores .= sort (a, b) -> b - a
-        [0 til scores.length by Math.round scores.length / 8].forEach -> console.log it, scores[it]
-        domains =
-            1998: [0 0.10 0.125 0.138 0.150 0.163 0.178 0.2 0.42]
-            2002: [0 0.08 0.098 0.112 0.124 0.138 0.157 0.189 0.7]
-            2006: [0 0.044 0.059 0.070 0.08 0.091 0.104 0.124 0.52]
-            2010: [0 0.287 0.323 0.349 0.374 0.398 0.426 0.465 0.692]
-        @color.domain domains[@year]
+        extreme = scores[0]
+        max = scores[Math.round scores.length / 10]
+        console.log max, extreme
+        [max, extreme] = [0.15 0.5]
+        @color.domain do
+            *   max * 0
+                max * 0.14
+                max * 0.28
+                max * 0.42
+                max * 0.56
+                max * 0.7
+                max * 0.84
+                max * 1
+                extreme
+        console.log @color.domain!
+        domain = [0 til scores.length by Math.round scores.length / 10].map -> scores[it]
+        # console.log domain
 
     sumParties: (zkratky, results) ->
         zkratky.reduce do
