@@ -7,8 +7,8 @@ height = 1080 #$window .height!
 year = [2010,2006,2002,1998,1996].4
 party = "SPR-RSČ"
 # new SquareAdmin {width, height}
-sides = [[ party ]]
-document.title = "SPR #year"
+sides = []
+document.title = "vitezove #year"
 (err, parties) <~ d3.csv "../data/strany_ids.csv"
 $body = $ \body
 $selects = $ "<div id='selects' />"

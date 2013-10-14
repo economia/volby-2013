@@ -14,7 +14,7 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
         @color = d3.scale.linear!
 
         @decorateWithResults obce
-        if @sides
+        if @sides and @sides.length
             allParties = @sides.0.slice 0
             if @sides.1 then allParties ++= @sides.1
             allParties .= map ~> @parties.get it
@@ -33,17 +33,32 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             year    = @year
             partyResults = null
             vysledky = obce[it.properties.id]
-            if vysledky
-                total = vysledky.reduce do
-                    (acc, curr) -> acc + curr
-                    0
-                partyResults = allParties.map ~>
-                    pocet = vysledky[it[@year]]
+            if @sides.length
+                if vysledky
+                    total = vysledky.reduce do
+                        (acc, curr) -> acc + curr
+                        0
+                    partyResults = allParties.map ~>
+                        pocet = vysledky[it[@year]]
 
-                    abbr    = it.zkratka
-                    percent = pocet / total
-                    count   = pocet
-                    {abbr, percent, count}
+                        abbr    = it.zkratka
+                        percent = pocet / total
+                        count   = pocet
+                        {abbr, percent, count}
+            else
+                obec = obce[it.properties.id]
+                party = parties[obec?score]
+                if party
+                    pocet = vysledky[party[@year]]
+                    total = vysledky.reduce do
+                        (acc, curr) -> acc + curr
+                        0
+                    partyResults = [
+                        abbr: party.zkratka
+                        percent: pocet / total
+                        count: pocet
+                    ]
+                # party = parties.filter -> it[year] ==
 
             {id, name, year, partyResults}
 
@@ -88,8 +103,24 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
 
     decorateWithResults: (obce) ->
         max = -Infinity
+        parties_assoc = {}
+        @parties.values!forEach (party, index) ~>
+            party.index = index
+            if parties_assoc[party[@year]] and party[@year] != "0"
+                console.log party, parties_assoc[party[@year]]
+                throw "Party defined!"
+            parties_assoc[party[@year]] = party
         scores = for id, results of obce
             obce[id].score = switch @sides.length
+            | 0
+                winningIndex = null
+                winningValue = -Infinity
+                results.forEach (value, index) ->
+                    if value > winningValue
+                        winningValue := value
+                        winningIndex := index
+                winningIndex
+                parties_assoc[winningIndex]?index
             | 1
                 green = @sumParties @sides[0], results
                 all = results.reduce @~sumAll, 0
@@ -101,29 +132,45 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                 red = @sumParties @sides[0], results
                 blue = @sumParties @sides[1], results
                 blue / (red + blue)
-        if @sides.length == 2
-            max = 1
-            @color.range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
+        if @sides.length
+            if @sides.length == 2
+                max = 1
+                @color.range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
+            else
+                @color.range <[#FFF7F3 #FDE0DD #FCC5C0 #FA9FB5 #F768A1 #DD3497 #AE017E #7A0177 #49006A ]>
+            scores .= filter -> not isNaN it
+            scores .= sort (a, b) -> b - a
+            extreme = scores[0]
+            max = scores[Math.round scores.length / 10]
+            console.log max, extreme
+            [max, extreme] = [0.15 0.5]
+            @color.domain do
+                *   max * 0
+                    max * 0.14
+                    max * 0.28
+                    max * 0.42
+                    max * 0.56
+                    max * 0.7
+                    max * 0.84
+                    max * 1
+                    extreme
+            console.log @color.domain!
+            domain = [0 til scores.length by Math.round scores.length / 10].map -> scores[it]
         else
-            @color.range <[#FFF7F3 #FDE0DD #FCC5C0 #FA9FB5 #F768A1 #DD3497 #AE017E #7A0177 #49006A ]>
-        scores .= filter -> not isNaN it
-        scores .= sort (a, b) -> b - a
-        extreme = scores[0]
-        max = scores[Math.round scores.length / 10]
-        console.log max, extreme
-        [max, extreme] = [0.15 0.5]
-        @color.domain do
-            *   max * 0
-                max * 0.14
-                max * 0.28
-                max * 0.42
-                max * 0.56
-                max * 0.7
-                max * 0.84
-                max * 1
-                extreme
-        console.log @color.domain!
-        domain = [0 til scores.length by Math.round scores.length / 10].map -> scores[it]
+            @color = d3.scale.ordinal!
+            @color.domain @parties.values!map (.index)
+            range = [0 to 69].map -> \#aaa
+            range[10] = \#ae2d9f
+            range[3] = \#30cfe1
+            range[26] = \#f54200
+            range[25] = \#005091
+            range[38] = \#ce0000
+            range[42] = \#ce8dc4
+            range[36] = \#489422
+            range[12] = \#30cfe1
+            range[8] = \#8e5400
+            range[7] = \#8e5400
+            @color.range range
         # console.log domain
 
     sumParties: (zkratky, results) ->
