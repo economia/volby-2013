@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:39:42">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:04">
 <OKRES CIS_OKRES="CZ0325" NAZ_OKRES="Plzeň-sever">
 <UCAST OKRSKY_CELKEM="146" OKRSKY_ZPRAC="146" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="61921" VYDANE_OBALKY="35664" UCAST_PROC="57.60" ODEVZDANE_OBALKY="35656" PLATNE_HLASY="35342" PLATNE_HLASY_PROC="99.12"/>
 <HLASY_STRANA KSTRANA="1" HLASY="7739" PROC_HLASU="21.89"/>

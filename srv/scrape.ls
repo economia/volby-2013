@@ -16,7 +16,7 @@ len = nuts.length
 
 <~ async.eachSeries nuts, (nut, cb) ->
     (err, response, body) <~ request do
-        uri: "http://xml.datavolby.cz/pls/psmedia/vysledky_okres?nuts=#nut"
+        uri: "http://www.volby.cz/pls/ps2013/vysledky_okres?nuts=#nut"
         encoding: null
     body = iconv.convert body
     console.log "Loaded #nut - #{++cntr} / #len"
@@ -26,7 +26,7 @@ len = nuts.length
 
 # krajska mesta - praha, brno, ostrava, plzen
 (err, response, body) <~ request do
-    uri: "http://xml.datavolby.cz/pls/psmedia/vysledky_krajmesta"
+    uri: "http://www.volby.cz/pls/ps2013/vysledky_krajmesta"
     encoding: null
 body = iconv.convert body
 fs.writeFile "#__dirname/../data/vysledky_#{year}_nuts/krajmesta.xml", body

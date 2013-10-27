@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:39:52">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:02">
 <OKRES CIS_OKRES="CZ0208" NAZ_OKRES="Nymburk">
 <UCAST OKRSKY_CELKEM="155" OKRSKY_ZPRAC="155" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="75346" VYDANE_OBALKY="45524" UCAST_PROC="60.42" ODEVZDANE_OBALKY="45499" PLATNE_HLASY="45111" PLATNE_HLASY_PROC="99.15"/>
 <HLASY_STRANA KSTRANA="1" HLASY="8765" PROC_HLASU="19.42"/>

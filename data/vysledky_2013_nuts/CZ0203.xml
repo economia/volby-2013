@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:39:47">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:01">
 <OKRES CIS_OKRES="CZ0203" NAZ_OKRES="Kladno">
 <UCAST OKRSKY_CELKEM="211" OKRSKY_ZPRAC="211" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="128442" VYDANE_OBALKY="72722" UCAST_PROC="56.62" ODEVZDANE_OBALKY="72679" PLATNE_HLASY="72073" PLATNE_HLASY_PROC="99.17"/>
 <HLASY_STRANA KSTRANA="1" HLASY="14632" PROC_HLASU="20.30"/>

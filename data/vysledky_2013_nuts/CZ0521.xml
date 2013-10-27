@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:40:07">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:06">
 <OKRES CIS_OKRES="CZ0521" NAZ_OKRES="Hradec Králové">
 <UCAST OKRSKY_CELKEM="267" OKRSKY_ZPRAC="267" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="131595" VYDANE_OBALKY="84346" UCAST_PROC="64.10" ODEVZDANE_OBALKY="84310" PLATNE_HLASY="83674" PLATNE_HLASY_PROC="99.25"/>
 <HLASY_STRANA KSTRANA="1" HLASY="15186" PROC_HLASU="18.14"/>

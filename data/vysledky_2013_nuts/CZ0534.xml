@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:39:58">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:07">
 <OKRES CIS_OKRES="CZ0534" NAZ_OKRES="Ústí nad Orlicí">
 <UCAST OKRSKY_CELKEM="211" OKRSKY_ZPRAC="211" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="110742" VYDANE_OBALKY="70090" UCAST_PROC="63.29" ODEVZDANE_OBALKY="69987" PLATNE_HLASY="69238" PLATNE_HLASY_PROC="98.93"/>
 <HLASY_STRANA KSTRANA="1" HLASY="13810" PROC_HLASU="19.94"/>

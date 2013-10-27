@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:40:18">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:08">
 <OKRES CIS_OKRES="CZ0633" NAZ_OKRES="Pelhřimov">
 <UCAST OKRSKY_CELKEM="195" OKRSKY_ZPRAC="195" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="59056" VYDANE_OBALKY="37409" UCAST_PROC="63.34" ODEVZDANE_OBALKY="37391" PLATNE_HLASY="37121" PLATNE_HLASY_PROC="99.28"/>
 <HLASY_STRANA KSTRANA="1" HLASY="9783" PROC_HLASU="26.35"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:39:33">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:03">
 <OKRES CIS_OKRES="CZ0316" NAZ_OKRES="Strakonice">
 <UCAST OKRSKY_CELKEM="196" OKRSKY_ZPRAC="196" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="56992" VYDANE_OBALKY="34202" UCAST_PROC="60.01" ODEVZDANE_OBALKY="34195" PLATNE_HLASY="33970" PLATNE_HLASY_PROC="99.34"/>
 <HLASY_STRANA KSTRANA="1" HLASY="7260" PROC_HLASU="21.37"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:40:06">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:10">
 <OKRES CIS_OKRES="CZ0713" NAZ_OKRES="Prostějov">
 <UCAST OKRSKY_CELKEM="180" OKRSKY_ZPRAC="180" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="89366" VYDANE_OBALKY="53069" UCAST_PROC="59.38" ODEVZDANE_OBALKY="53045" PLATNE_HLASY="52708" PLATNE_HLASY_PROC="99.36"/>
 <HLASY_STRANA KSTRANA="1" HLASY="12644" PROC_HLASU="23.98"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:39:49">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:07">
 <OKRES CIS_OKRES="CZ0531" NAZ_OKRES="Chrudim">
 <UCAST OKRSKY_CELKEM="217" OKRSKY_ZPRAC="217" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="84740" VYDANE_OBALKY="52919" UCAST_PROC="62.45" ODEVZDANE_OBALKY="52888" PLATNE_HLASY="52485" PLATNE_HLASY_PROC="99.24"/>
 <HLASY_STRANA KSTRANA="1" HLASY="10490" PROC_HLASU="19.98"/>

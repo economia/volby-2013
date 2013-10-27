@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:39:32">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:08">
 <OKRES CIS_OKRES="CZ0642" NAZ_OKRES="Brno-město">
 <UCAST OKRSKY_CELKEM="350" OKRSKY_ZPRAC="350" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="311508" VYDANE_OBALKY="187841" UCAST_PROC="60.30" ODEVZDANE_OBALKY="187614" PLATNE_HLASY="186550" PLATNE_HLASY_PROC="99.43"/>
 <HLASY_STRANA KSTRANA="1" HLASY="38751" PROC_HLASU="20.77"/>

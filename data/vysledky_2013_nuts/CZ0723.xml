@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:39:29">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:10">
 <OKRES CIS_OKRES="CZ0723" NAZ_OKRES="Vsetín">
 <UCAST OKRSKY_CELKEM="150" OKRSKY_ZPRAC="150" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="119223" VYDANE_OBALKY="70285" UCAST_PROC="58.95" ODEVZDANE_OBALKY="70223" PLATNE_HLASY="69778" PLATNE_HLASY_PROC="99.37"/>
 <HLASY_STRANA KSTRANA="1" HLASY="13253" PROC_HLASU="18.99"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:39:26">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:06">
 <OKRES CIS_OKRES="CZ0522" NAZ_OKRES="Jičín">
 <UCAST OKRSKY_CELKEM="180" OKRSKY_ZPRAC="180" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="64911" VYDANE_OBALKY="40014" UCAST_PROC="61.64" ODEVZDANE_OBALKY="39991" PLATNE_HLASY="39645" PLATNE_HLASY_PROC="99.13"/>
 <HLASY_STRANA KSTRANA="1" HLASY="7422" PROC_HLASU="18.72"/>

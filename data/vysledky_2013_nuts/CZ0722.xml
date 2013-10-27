@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:39:25">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:10">
 <OKRES CIS_OKRES="CZ0722" NAZ_OKRES="Uherské Hradiště">
 <UCAST OKRSKY_CELKEM="152" OKRSKY_ZPRAC="152" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="117480" VYDANE_OBALKY="73358" UCAST_PROC="62.44" ODEVZDANE_OBALKY="73296" PLATNE_HLASY="72873" PLATNE_HLASY_PROC="99.42"/>
 <HLASY_STRANA KSTRANA="1" HLASY="14344" PROC_HLASU="19.68"/>

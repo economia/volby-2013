@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:40:04">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:05">
 <OKRES CIS_OKRES="CZ0413" NAZ_OKRES="Sokolov">
 <UCAST OKRSKY_CELKEM="95" OKRSKY_ZPRAC="95" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="74512" VYDANE_OBALKY="35799" UCAST_PROC="48.04" ODEVZDANE_OBALKY="35764" PLATNE_HLASY="35424" PLATNE_HLASY_PROC="99.05"/>
 <HLASY_STRANA KSTRANA="1" HLASY="8789" PROC_HLASU="24.81"/>

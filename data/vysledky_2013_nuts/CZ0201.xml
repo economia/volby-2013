@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:39:52">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:01">
 <OKRES CIS_OKRES="CZ0201" NAZ_OKRES="Benešov">
 <UCAST OKRSKY_CELKEM="217" OKRSKY_ZPRAC="217" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="78116" VYDANE_OBALKY="48885" UCAST_PROC="62.58" ODEVZDANE_OBALKY="48870" PLATNE_HLASY="48492" PLATNE_HLASY_PROC="99.23"/>
 <HLASY_STRANA KSTRANA="1" HLASY="9703" PROC_HLASU="20.00"/>

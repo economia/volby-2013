@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:39:45">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:07">
 <OKRES CIS_OKRES="CZ0533" NAZ_OKRES="Svitavy">
 <UCAST OKRSKY_CELKEM="187" OKRSKY_ZPRAC="187" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="84983" VYDANE_OBALKY="50958" UCAST_PROC="59.96" ODEVZDANE_OBALKY="50938" PLATNE_HLASY="50493" PLATNE_HLASY_PROC="99.13"/>
 <HLASY_STRANA KSTRANA="1" HLASY="11597" PROC_HLASU="22.96"/>

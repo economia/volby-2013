@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:39:47">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:09">
 <OKRES CIS_OKRES="CZ0711" NAZ_OKRES="Jeseník">
 <UCAST OKRSKY_CELKEM="49" OKRSKY_ZPRAC="49" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="33367" VYDANE_OBALKY="18546" UCAST_PROC="55.58" ODEVZDANE_OBALKY="18538" PLATNE_HLASY="18375" PLATNE_HLASY_PROC="99.12"/>
 <HLASY_STRANA KSTRANA="1" HLASY="4374" PROC_HLASU="23.80"/>

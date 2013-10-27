@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:39:32">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:03">
 <OKRES CIS_OKRES="CZ0317" NAZ_OKRES="Tábor">
 <UCAST OKRSKY_CELKEM="207" OKRSKY_ZPRAC="207" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="84128" VYDANE_OBALKY="52314" UCAST_PROC="62.18" ODEVZDANE_OBALKY="52274" PLATNE_HLASY="51873" PLATNE_HLASY_PROC="99.23"/>
 <HLASY_STRANA KSTRANA="1" HLASY="11508" PROC_HLASU="22.18"/>

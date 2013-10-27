@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <VYSLEDKY_OKRES xmlns="http://www.volby.cz/ps/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.volby.cz/ps/ ps_vysledky_okres.xsd"
-                 DATUM_GENEROVANI="26/10/2013" CAS_GENEROVANI="19:39:30">
+                 DATUM_GENEROVANI="27/10/2013" CAS_GENEROVANI="11:42:11">
 <OKRES CIS_OKRES="CZ0801" NAZ_OKRES="Bruntál">
 <UCAST OKRSKY_CELKEM="141" OKRSKY_ZPRAC="141" OKRSKY_ZPRAC_PROC="100.00" ZAPSANI_VOLICI="79298" VYDANE_OBALKY="41999" UCAST_PROC="52.96" ODEVZDANE_OBALKY="41969" PLATNE_HLASY="41636" PLATNE_HLASY_PROC="99.21"/>
 <HLASY_STRANA KSTRANA="1" HLASY="10878" PROC_HLASU="26.12"/>
