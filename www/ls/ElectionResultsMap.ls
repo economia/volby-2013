@@ -14,10 +14,6 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
         @color = d3.scale.linear!
 
         @decorateWithResults obce
-        if @sides
-            allParties = @sides.0.slice 0
-            if @sides.1 then allParties ++= @sides.1
-            allParties .= map ~> @parties.get it
         filename = if @year > 1998 then "obce_medium" else "obce_98"
         (err, obceTopo) <~ d3.json "../data/#filename.topojson"
         obceTopo.objects.obce.geometries ++= obceTopo.objects.mesta.geometries
@@ -37,13 +33,14 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                 total = vysledky.reduce do
                     (acc, curr) -> acc + curr
                     0
-                partyResults = allParties.map ~>
-                    pocet = vysledky[it[@year]]
-
-                    abbr    = it.zkratka
-                    percent = pocet / total
-                    count   = pocet
-                    {abbr, percent, count}
+                partyResults = @sides.map (side) ~>
+                    side.map ~>
+                        party = @parties.get it
+                        pocet = vysledky[party[@year]]
+                        abbr    = party.zkratka
+                        percent = pocet / total
+                        count   = pocet
+                        {abbr, percent, count}
 
             {id, name, year, partyResults}
 
@@ -59,8 +56,10 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                     {year, id, name, partyResults} = tooltip it
                     str = "<b>#{name} #id</b>, rok #{year}<br />"
                     if partyResults
-                        partyResults.forEach ({abbr, percent, count}) ->
-                            str += "#{abbr}: #{(percent * 100).toFixed 2}%  (#{count} hlasů)<br />"
+                        partyResults.forEach (side, index) ->
+                            str += "Strana #index<br />"
+                            side.forEach ({abbr, percent, count}) ->
+                                str += "#{abbr}: #{(percent * 100).toFixed 2}%  (#{count} hlasů)<br />"
                     else
                         str += "kdo ví"
                     escape str
@@ -104,26 +103,27 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
         if @sides.length == 2
             max = 1
             @color.range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
+            @color.domain [0, 0.25, 0.5, 0.75, 1]
         else
             @color.range <[#FFFFCC #FFEDA0 #FED976 #FEB24C #FD8D3C #FC4E2A #E31A1C #BD0026 #800026]>
-        scores .= filter -> not isNaN it
-        scores .= sort (a, b) -> b - a
-        extreme = scores[0]
-        max = scores[Math.round scores.length / 10]
-        console.log max, extreme
-        [max, extreme] = [0.123, 0.329]
-        @color.domain do
-            *   max * 0
-                max * 0.14
-                max * 0.28
-                max * 0.42
-                max * 0.56
-                max * 0.7
-                max * 0.84
-                max * 1
-                extreme
-        console.log @color.domain!
-        domain = [0 til scores.length by Math.round scores.length / 10].map -> scores[it]
+            scores .= filter -> not isNaN it
+            scores .= sort (a, b) -> b - a
+            extreme = scores[0]
+            max = scores[Math.round scores.length / 10]
+            console.log max, extreme
+            [max, extreme] = [0.123, 0.329]
+            @color.domain do
+                *   max * 0
+                    max * 0.14
+                    max * 0.28
+                    max * 0.42
+                    max * 0.56
+                    max * 0.7
+                    max * 0.84
+                    max * 1
+                    extreme
+            console.log @color.domain!
+            domain = [0 til scores.length by Math.round scores.length / 10].map -> scores[it]
         # console.log domain
 
     sumParties: (zkratky, results) ->
