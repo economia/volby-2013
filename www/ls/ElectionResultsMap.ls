@@ -30,10 +30,15 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             partyResults = null
             vysledky = obce[it.properties.id]
             if vysledky
-                total = vysledky.reduce do
+                vysledky_subset = if @sides.0.0 == 'Nevoliči'
+                    vysledky
+                else
+                    vysledky.slice 1
+
+                total = vysledky_subset.reduce do
                     (acc, curr) -> acc + curr
                     0
-                partyResults = @sides.map (side) ~>
+                mapSide = (side) ~>
                     side.map ~>
                         party = @parties.get it
                         pocet = vysledky[party[@year]]
@@ -41,6 +46,11 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                         percent = pocet / total
                         count   = pocet
                         {abbr, percent, count}
+                partyResults = if @sides.length > 1
+                    @sides.map mapSide
+                else
+                    mapSide @sides.0
+
 
             {id, name, year, partyResults}
 
@@ -56,9 +66,13 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                     {year, id, name, partyResults} = tooltip it
                     str = "<b>#{name} #id</b>, rok #{year}<br />"
                     if partyResults
-                        partyResults.forEach (side, index) ->
-                            str += "Strana #index<br />"
-                            side.forEach ({abbr, percent, count}) ->
+                        if @sides.length > 1
+                            partyResults.forEach (side, index) ->
+                                str += "Strana #index<br />"
+                                side.forEach ({abbr, percent, count}) ->
+                                    str += "#{abbr}: #{(percent * 100).toFixed 2}%  (#{count} hlasů)<br />"
+                        else
+                            partyResults.forEach ({abbr, percent, count}) ->
                                 str += "#{abbr}: #{(percent * 100).toFixed 2}%  (#{count} hlasů)<br />"
                     else
                         str += "kdo ví"
@@ -105,13 +119,13 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             @color.range <[ #0571B0 #92C5DE #F7F7F7 #F4A582 #CA0020 ]>
             @color.domain [0, 0.25, 0.5, 0.75, 1]
         else
-            @color.range <[#FFFFCC #FFEDA0 #FED976 #FEB24C #FD8D3C #FC4E2A #E31A1C #BD0026 #800026]>
+            @color.range <[#FFFFFF #F0F0F0 #D9D9D9 #BDBDBD #969696 #737373 #525252 #252525 #000000]>
             scores .= filter -> not isNaN it
             scores .= sort (a, b) -> b - a
             extreme = scores[0]
             max = scores[Math.round scores.length / 10]
             console.log max, extreme
-            [max, extreme] = [0.123, 0.329]
+            [max, extreme] = [0.478, 1]
             @color.domain do
                 *   max * 0
                     max * 0.14
