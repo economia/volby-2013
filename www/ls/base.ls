@@ -8,7 +8,7 @@ year = years.0
 party = "Úsvit"
 # new SquareAdmin {width, height}
 sides = [[ party ]]
-document.title = "USVIT #year"
+document.title = "koalice #year"
 (err, parties) <~ d3.csv "../data/strany_ids.csv"
 $body = $ \body
 $selects = $ "<div id='selects' />"
@@ -34,6 +34,7 @@ $ document .on \click 'input#submit' ->
     if !sides.1 || !sides.1.length
         sides.pop!
     year = $selectR.val!
+    document.title = "koalice #year"
     $ \svg .remove!
     worldmap = new ElectionResultsMap year, sides, {width, height}
 worldmap = new ElectionResultsMap year, sides, {width, height}
