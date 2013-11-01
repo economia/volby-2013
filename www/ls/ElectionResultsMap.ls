@@ -102,7 +102,7 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
                 blue / (red + blue)
         if @sides.length == 2
             max = 1
-            @color.range <[ #CA0020 #F4A582 #F7F7F7 #92C5DE #0571B0 ]>
+            @color.range <[ #0571B0 #92C5DE #F7F7F7 #F4A582 #CA0020 ]>
             @color.domain [0, 0.25, 0.5, 0.75, 1]
         else
             @color.range <[#FFFFCC #FFEDA0 #FED976 #FEB24C #FD8D3C #FC4E2A #E31A1C #BD0026 #800026]>
