@@ -3,8 +3,8 @@ new Tooltip!watchElements!
 $window = $ window
 width  = 1920 #$window .width!
 height = 1080 #$window .height!
-
-year = [2013, 2010,2006,2002,1998,1996].0
+years = [2013, 2010,2006,2002,1998,1996]
+year = years.0
 party = "Úsvit"
 # new SquareAdmin {width, height}
 sides = [[ party ]]
@@ -21,7 +21,7 @@ $selectR = $ "<select name='rok'/>"
     ..appendTo $selects
 $ "<input type='submit' value='Zobrazit' id='submit' />"
     ..appendTo $selects
-[2010,2006,2002,1998,1996].forEach ->
+years.forEach ->
     $ "<option value='#{it}'>#{it}</option>" .appendTo $selectR
 parties.forEach ->
     $ "<option value='#{it.zkratka}'>#{it.zkratka} #{it.nazev}</option>" .appendTo $select1
