@@ -32,7 +32,7 @@ $ document .on \click 'input#submit' ->
     sides.1 = $select2.val!
     if !sides.1 || !sides.1.length
         sides.pop!
-    year = $selectR.val!
+    year = parseInt $selectR.val!, 10
     document.title = "#year"
     $ \svg .remove!
     worldmap = new ElectionResultsMap year, sides, {width, height}
