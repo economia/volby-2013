@@ -119,13 +119,13 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
             @color.range <[ #0571B0 #92C5DE #F7F7F7 #F4A582 #CA0020 ]>
             @color.domain [0, 0.25, 0.5, 0.75, 1]
         else
-            @color.range <[#FFFFFF #F0F0F0 #D9D9D9 #BDBDBD #969696 #737373 #525252 #252525 #000000]>
+            @color.range <[#FFFFFF #F0F0F0 #D9D9D9 #BDBDBD #969696 #737373 #525252 #252525 #000000 ]>
             scores .= filter -> not isNaN it
             scores .= sort (a, b) -> b - a
             extreme = scores[0]
             max = scores[Math.round scores.length / 10]
             console.log max, extreme
-            [max, extreme] = [0.478, 1]
+            [max, extreme] = [0.028 0.152]
             @color.domain do
                 *   max * 0
                     max * 0.14

@@ -6,7 +6,6 @@ height = 1080 #$window .height!
 years = [2013,2010,2006,2002,1998,1996]
 year = years.0
 party = "Nevoliči"
-# new SquareAdmin {width, height}
 sides = [[ party ]]
 document.title = "nevolici #year"
 (err, parties) <~ d3.csv "../data/strany_ids.csv"
@@ -38,7 +37,3 @@ $ document .on \click 'input#submit' ->
     $ \svg .remove!
     worldmap = new ElectionResultsMap year, sides, {width, height}
 worldmap = new ElectionResultsMap year, sides, {width, height}
-# $window.on \resize ->
-#     width  = $window .width!
-#     height = $window .height!
-#     worldmap.resize {width, height}
