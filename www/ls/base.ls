@@ -7,7 +7,7 @@ years = [2013,2010,2006,2002,1998,1996]
 year = years.0
 party = "Nevoliči"
 sides = [[ party ]]
-document.title = "nevolici #year"
+document.title = "Mapa #year"
 (err, parties) <~ d3.csv "../data/strany_ids.csv"
 $body = $ \body
 $selects = $ "<div id='selects' />"
@@ -33,7 +33,7 @@ $ document .on \click 'input#submit' ->
     if !sides.1 || !sides.1.length
         sides.pop!
     year = $selectR.val!
-    document.title = "koalice #year"
+    document.title = "#year"
     $ \svg .remove!
     worldmap = new ElectionResultsMap year, sides, {width, height}
 worldmap = new ElectionResultsMap year, sides, {width, height}
