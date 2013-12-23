@@ -16,10 +16,20 @@ window.ElectionResultsMap = class ElectionResultsMap implements Dimensionable
         @decorateWithResults obce
         filename = if @year > 1998 then "obce_medium" else "obce_98"
         (err, obceTopo) <~ d3.json "../data/#filename.topojson"
+        cartogram = d3.cartogram!
+            .value ->
+                100 * Math.random!
+
         obceTopo.objects.obce.geometries ++= obceTopo.objects.mesta.geometries
+        obceTopo.objects.obce.geometries.length = 30
         features = topojson.feature obceTopo, obceTopo.objects.obce .features
         bounds = @getBounds features
         @project bounds
+        cartogram.projection @projection
+        console.log features
+        features = cartogram obceTopo, obceTopo.objects.obce.geometries .features
+        console.log features
+        # return
         @annotateSvg bounds
         @path = d3.geo.path!
             ..projection @projection
